@@ -107,13 +107,34 @@ describe('deep heroes component', () => {
 
     app_hero[0].triggerEventHandler('delete', null);//different then getting the button onthe compoent then trigger
                                     //the component also has a tri
-
-
-    //Test that a click event is called
     expect(fixture.componentInstance.delete).toHaveBeenCalledWith(DATA[0]);
 
+  });
 
+  //Test interaction with inputing data into the form
+  it('input data into a form when click add button', () => {
+
+    //Test that a click event is called
+
+    mockHeroService.getHeroes.and.returnValue(of(DATA));
+    fixture.detectChanges();
+    let namevalue = "mr ice";
+    mockHeroService.addHero.and.returnValue(of({id: 134, name: namevalue, strength: 10}));
+    const input = fixture.debugElement.query(By.css('input'));
+    // @ts-ignore  - the correct is nativeElement it shoud not be show as an error
+    const actualDomInputElement = input.nativeElement;  //I want the dom element not the debug Element
+    let addButton = fixture.debugElement.queryAll(By.css('button'))[0];  //Get the very first button which will be an add button
+    actualDomInputElement.value = namevalue;  //like typing in namevalue into the input box
+    addButton.triggerEventHandler('click',null); //Cause the action of clicking the button
+
+    fixture.detectChanges();
+    let debugElement = fixture.debugElement.query(By.css('ul'));
+    let textContent = debugElement.nativeElement.textContent;
+    fixture.detectChanges();
+    console.log(textContent);
+    expect(textContent).toContain(namevalue);
   })
+
 
 
 

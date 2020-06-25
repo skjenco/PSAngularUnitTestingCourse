@@ -7,7 +7,10 @@
     "ng": "ng",
     "build": "ng build --prod",
     "start": "ng serve --port 4009",
-    "test": "ng test --source-map=false",
+    "comment": {
+          "test": "ng test --source-map=false"
+    },
+    "test": "ng test ",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "e2e": "ng e2e"
   },

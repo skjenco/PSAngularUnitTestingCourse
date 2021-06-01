@@ -7,6 +7,8 @@ import {HeroComponent} from "../hero/hero.component";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {of} from "rxjs";
 import {By} from "@angular/platform-browser";
+import {RouterModule} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 // id: number;
 // name: string;
@@ -25,9 +27,9 @@ describe('deep heroes component', () => {
     TestBed.configureTestingModule( {
       declarations: [HeroesComponent,
                      HeroComponent],  //this is why it is a deep test because we are really testing interaction with the heroComponent
-      imports: [HttpClientTestingModule],
-      providers: [ {provide: HeroService, useValue: mockHeroService}, MessageService ],
-      schemas: [NO_ERRORS_SCHEMA]
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [ {provide: HeroService, useValue: mockHeroService}, MessageService ]
+      //schemas: [NO_ERRORS_SCHEMA] // to remove this again I needed to add RouterTestingModule
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroesComponent);
